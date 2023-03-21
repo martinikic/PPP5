@@ -1,0 +1,27 @@
+from github import Github
+import datetime
+
+# First, create a Github instance using your Github username and access token
+g = Github("<your-github-access-token>")
+
+# Replace "<your-github-access-token>" with your actual GitHub access token
+# You can create a token by following these instructions: https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token
+
+# Next, get the repository that you want to create a release in
+repo = g.get_repo("<your-username>/<your-repo-name>")
+
+# Replace "<your-username>/<your-repo-name>" with the actual username and repository name
+
+# Define the release name and tag
+release_name = "v1.0.0"
+release_tag = "v1.0.0"
+
+# Define the release body
+today = datetime.date.today().strftime("%B %d, %Y")
+release_body = f"Release {release_name} ({today})\n\nThis is the first release of the repository."
+
+# Create the release
+release = repo.create_git_release(release_tag, release_name, release_body)
+
+# Print a success message
+print(f"Created new release '{release.title}' in repository '{repo.full_name}'")
